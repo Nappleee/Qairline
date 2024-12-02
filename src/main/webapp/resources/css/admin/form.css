@@ -1,0 +1,18 @@
+.error-message {
+    color: red;
+    font-size: 12px;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: none;
+    position: absolute;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
