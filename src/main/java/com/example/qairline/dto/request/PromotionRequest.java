@@ -15,4 +15,5 @@ public class PromotionRequest {
     private Double discountPercent;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
 }

@@ -50,7 +50,9 @@
                                         <div class="select-container">
                                             <select class="form-select" class="aircraftModel" id="aircraftModel" name="aircraftModel" required>
                                                 <option value="" selected disabled>Select airplane model</option>
-
+                                                 <option value="VJA">Vietjet Air</option>
+                                                 <option value="BBA">Bamboo Airway</option>
+                                                 <option value="VNA">Viet Nam Airlines</option>
                                             </select>
                                         </div>
 
@@ -256,7 +258,7 @@
                 flights.forEach(function (flight) {
                     rows += '<tr>';
                     rows += '<td>' + flight.flightId + '</td>';
-                    rows += '<td>' + flight.aircraft + '</td>';
+                    rows += '<td>' + flight.aircraftModel + '</td>';
                     rows += '<td>' + flight.departure + '</td>';
                     rows += '<td>' + flight.destination + '</td>';
                     rows += '<td>' + flight.departureTime.toString() + '</td>';

@@ -27,6 +27,11 @@ public class PromotionController {
         return promotionService.getAllPromotionsPaging(page, size);
     }
 
+    @GetMapping("/home")
+    public String Lmao(){
+        return "user/home";
+    }
+
     @GetMapping("api/promotionsSearch")
     @ResponseBody
     public Page<PromotionResponse> getPromotionsSearch(@RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
