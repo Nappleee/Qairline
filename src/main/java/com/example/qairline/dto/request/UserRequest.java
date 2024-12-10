@@ -1,6 +1,6 @@
-package com.example.qairline.model;
+package com.example.qairline.dto.request;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -8,23 +8,16 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-@Entity
-@Table(name = "users")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
+public class UserRequest {
     private String fullName;
 
+    private String role;
+    private String address;
     @NotEmpty(message = "Username cannot be empty")
     @Column(unique = true)
     private String username;
@@ -38,18 +31,7 @@ public class User {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
+    @NotEmpty(message = "Phone Number cannot be empty")
+    @Column(unique = true)
     private String phoneNumber;
-
-    private String address;
-
-    private String role;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Ticket> tickets;
-
-//        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//        private List<Announcement> announcements;
-
 }

@@ -19,14 +19,16 @@ public class FlightResponse {
     private String destination;
     private String departureTime;
     private Double ticketPrice;
+    private long remainingTickets;
 
-    public FlightResponse(Long flightId,String aircraftModel, String departure, String destination, LocalDateTime departureTime, Double ticketPrice) {
+    public FlightResponse(Long flightId,String aircraftModel, String departure, String destination, LocalDateTime departureTime, Double ticketPrice, long remainingTickets) {
         this.flightId = flightId;
         this.aircraft = aircraftModel;
         this.departure = departure;
         this.destination = destination;
         this.departureTime = formatDateTime(departureTime);
         this.ticketPrice = ticketPrice;
+        this.remainingTickets = remainingTickets;
     }
 
     private String formatDateTime(LocalDateTime dateTime) {

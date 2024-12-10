@@ -147,35 +147,45 @@
     // Gọi API và hiển thị dữ liệu trong bảng
     let currentPage = 0;
     let keyword = $('#search-input').val();
+    var token = localStorage.getItem('accessToken');
+    console.log(token);
     function loadAircraft(Page, keyword) {
         console.log(Page);
         $.ajax({
             url: '/api/aircraftsSearch?keyword=' + keyword + '&page='+ Page +'&size=5', // URL của REST API
             method: 'GET',
             dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             success: function (data) {
                 // Lặp qua danh sách aircraft và thêm vào bảng
                 const aircraft = data.content;
                 console.log(aircraft)
+                if (data === null) {
 
-                var rows = '';
-                aircraft.forEach(function (aircraft) {
-                    rows += '<tr>';
-                    rows += '<td>' + aircraft.aircraftId + '</td>';
-                    rows += '<td>' + aircraft.model + '</td>';
-                    rows += '<td>' + aircraft.capacity + '</td>';
-                    //rows += '<td class="text-center"><a class="btn-edit">Edit</a> / <a class="btn-edit" onclick="confirmDelete('+ aircraft.model + ')">Remove</a></td>';
-                    rows += '</tr>';
-                });
-                // console.log(rows);
-                $('#aircraftTable tbody').html(rows);
+                } else {
+                    var rows = '';
+                    aircraft.forEach(function (aircraft) {
+                        rows += '<tr>';
+                        rows += '<td>' + aircraft.aircraftId + '</td>';
+                        rows += '<td>' + aircraft.model + '</td>';
+                        rows += '<td>' + aircraft.capacity + '</td>';
+                        //rows += '<td class="text-center"><a class="btn-edit">Edit</a> / <a class="btn-edit" onclick="confirmDelete('+ aircraft.model + ')">Remove</a></td>';
+                        rows += '</tr>';
+                    });
+                    // console.log(rows);
+                    $('#aircraftTable tbody').html(rows);
 
-                $('#currentPage').text(`Page: ` + (data.number + 1));
-                $('#prevPage').prop('disabled', data.first);
-                $('#nextPage').prop('disabled', data.last);
+                    $('#currentPage').text(`Page: ` + (data.number + 1));
+                    $('#prevPage').prop('disabled', data.first);
+                    $('#nextPage').prop('disabled', data.last);
+                }
+
             },
             error: function (error) {
                 console.error('Error fetching aircraft:', error);
+                window.location.href = '/admin/deny';
             }
         });
     };
@@ -187,9 +197,12 @@
             var formData = $(this).serialize(); // Lấy dữ liệu từ form
 
             $.ajax({
-                url: '/admin/aircrafts', // Đường dẫn tới controller
+                url: '/admin/addaircrafts', // Đường dẫn tới controller
                 type: 'POST',
                 data: formData,
+                headers: {
+                    'Authorization': 'Bearer ' + token  // Thêm token vào header Authorization
+                },
                 success: function(response) {
                     // Nếu thêm thành công, bạn có thể làm gì đó, ví dụ thông báo thành công hoặc redirect
                     console.log(response);

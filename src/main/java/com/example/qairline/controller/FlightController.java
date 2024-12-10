@@ -6,6 +6,7 @@ import com.example.qairline.dto.response.FlightResponse;
 import com.example.qairline.dto.response.UserResponse;
 import com.example.qairline.model.Flight;
 import com.example.qairline.service.FlightService;
+import com.example.qairline.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -21,26 +22,40 @@ import java.util.List;
 public class FlightController {
     @Autowired
     private FlightService flightService;
+    @Autowired
+    private SecurityUtil securityUtil;
+    @Autowired
+    AuthController authController;
 
     @Transactional
     @GetMapping("/api/flights")
     @ResponseBody
-    public Page<FlightResponse> getAllFlights(@RequestParam(defaultValue = "0") int page,
+    public Page<FlightResponse> getAllFlights(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "5") int size) {
-        return flightService.getAllFlightsPaging(page, size); // Trả về JSON danh sách flights
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return flightService.getAllFlightsPaging(page, size); // Trả về JSON danh sách flights
+
+        }
+        return null;
     }
 
     @GetMapping("api/flightsSearch")
     @ResponseBody
-    public Page<FlightResponse> getFlightsSearch(@RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
+    public Page<FlightResponse> getFlightsSearch(@RequestHeader("Authorization") String authorizationHeader, @RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return flightService.searchFlights(keyword, page, size);
 
-        return flightService.searchFlights(keyword, page, size);
+        }
+        return null;
     }
 
     @GetMapping("/api/getAllFlights")
     @ResponseBody
-    public List<FlightResponse> getAllFlights() {
-        return flightService.getAllFlights();
+    public List<FlightResponse> getAllFlights(@RequestHeader("Authorization") String authorizationHeader) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return flightService.getAllFlights();
+        }
+        return null;
     };
 
     @GetMapping("/admin/flights")
@@ -53,30 +68,48 @@ public class FlightController {
 
     @PostMapping("/api/deleteflight")
     @ResponseBody
-    public String deleteFlight(@RequestParam("flightId") Long flightId) {
-        flightService.deleteFlight(flightId);
-        return "success";
+    public String deleteFlight(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("flightId") Long flightId) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            flightService.deleteFlight(flightId);
+            return "success";
+        }
+        return null;
     }
 
-    @PostMapping("/admin/flights")
+    @PostMapping("/admin/addflights")
     @ResponseBody
-    public String addFlight(@ModelAttribute("addFlightModelAttribute") FlightRequest request, RedirectAttributes redirectAttributes) {
-        flightService.addFlight(request);
-        return "success";
+    public String addFlight(@RequestHeader("Authorization") String authorizationHeader, @ModelAttribute("addFlightModelAttribute") FlightRequest request, RedirectAttributes redirectAttributes) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            flightService.addFlight(request);
+            return "success";
+        }
+        return null;
     }
 
     @GetMapping("/api/flights/{flightId}")
     @ResponseBody
-    public FlightResponse getFlightById(@PathVariable Long flightId) {
-        return flightService.getFlightById(flightId);
+    public FlightResponse getFlightById(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long flightId) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return flightService.getFlightById(flightId);
+        }
+        return null;
     }
 
 
     @PutMapping("/api/flights/{flightId}")
     @ResponseBody
-    public FlightResponse updateFlight(@PathVariable Long flightId, @RequestBody FlightRequest flightRequest) {
-        return flightService.editFlight(flightId, flightRequest);
+    public FlightResponse updateFlight(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long flightId, @RequestBody FlightRequest flightRequest) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return flightService.editFlight(flightId, flightRequest);
+        }
+        return null;
     }
 
-
+    boolean isAdmin() {
+        String userName = securityUtil.getCurrentUserLogin().orElse(null);
+        if (userName != null && userName.equals("admin")) {
+            return true;
+        }
+        return false;
+    }
 }

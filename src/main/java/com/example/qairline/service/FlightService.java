@@ -8,6 +8,7 @@ import com.example.qairline.model.Aircraft;
 import com.example.qairline.model.Flight;
 import com.example.qairline.repository.AircraftRepository;
 import com.example.qairline.repository.FlightRepository;
+import com.example.qairline.repository.TicketRepository;
 import jakarta.persistence.ManyToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -27,6 +28,8 @@ public class FlightService {
     private FlightRepository flightRepository;
     @Autowired
     private AircraftRepository aircraftRepository;
+    @Autowired
+    private TicketRepository ticketRepository;
 
     public FlightResponse getFlightById(long id) {
         return convertToDTO(flightRepository.findById(id));
@@ -90,6 +93,6 @@ public class FlightService {
     }
 
     private FlightResponse convertToDTO(Flight flight) {
-        return new FlightResponse(flight.getFlightId(), flight.getAircraft().getModel(), flight.getDeparture(), flight.getDestination(), flight.getDepartureTime(), flight.getTicketPrice());
+        return new FlightResponse(flight.getFlightId(), flight.getAircraft().getModel(), flight.getDeparture(), flight.getDestination(), flight.getDepartureTime(), flight.getTicketPrice(), ticketRepository.findByFlightAndUserIsNull(flight).stream().count());
     }
 }

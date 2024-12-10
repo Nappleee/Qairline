@@ -169,10 +169,13 @@
             url: '/api/announcementsSearch?keyword=' + keyword + '&page='+ Page +'&size=5', // URL của REST API
             method: 'GET',
             dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             success: function (data) {
                 // Lặp qua danh sách announcements và thêm vào bảng
                 const announcements = data.content;
-                console.log(announcements);
+                console.log(data);
 
                 var rows = '';
                 announcements.forEach(function (announcement) {
@@ -216,6 +219,9 @@
                 url: '/api/deleteannouncement', // Đường dẫn API để xóa
                 method: 'POST',
                 data: { announcementId: announcementIdToDelete },
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+                },
                 success: function(response) {
                     $('#deleteConfirmModal').modal('hide');
                     location.reload();
@@ -235,6 +241,9 @@
             url: '/api/announcements/' + announcementId,  // API lấy thông tin chuyến bay
             method: 'GET',
             dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             success: function(data) {
                 // Điền thông tin vào các trường trong form modal
                 $('#editannouncementId').val(data.announcementId);  // announcement ID
@@ -264,6 +273,9 @@
         $.ajax({
             url: '/api/announcements/' + announcementId,
             method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             data: JSON.stringify({
                 announcementId: announcementId,
                 title: title,
@@ -290,9 +302,12 @@
             var formData = $(this).serialize(); // Lấy dữ liệu từ form
             console.log(formData)
             $.ajax({
-                url: '/admin/announcements', // Đường dẫn tới controller
+                url: '/admin/addannouncements', // Đường dẫn tới controller
                 type: 'POST',
                 data: formData,
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+                },
                 success: function(response) {
                     console.log(response);
                     if (response == "success") {
@@ -301,6 +316,11 @@
                     }
                     //location.reload(); // Hoặc reload trang để hiển thị thay đổi
                 },
+                error: function (error) {
+                    console.error('Error fetching aircraft:', error);
+                    window.location.href = '/admin/deny';
+                }
+
             });
         });
     });

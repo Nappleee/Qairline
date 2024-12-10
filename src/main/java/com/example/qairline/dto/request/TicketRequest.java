@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 public class TicketRequest {
     private Long flightId;
 
-    //private String userName;
+    private String userName;
 
     private String seatNumber;
 

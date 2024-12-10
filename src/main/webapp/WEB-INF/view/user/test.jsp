@@ -21,7 +21,7 @@
     <%@ include file="../share-view/admin_left_sidebar.jsp" %>
 
     <div class="body-wrapper">
-    <%@ include file="../share-view/admin_header.jsp" %>
+        <%@ include file="../share-view/admin_header.jsp" %>
 
         <div class="container-fluid flight-container">
             <h1>Flight</h1>

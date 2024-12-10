@@ -1,0 +1,162 @@
+@charset "UTF-8";@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
+
+.ticket-container .add-ticket {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    margin-bottom: 20px;
+}
+.ticket-container .btn-add-ticket {
+    display: flex;
+    justify-content: flex-end;
+    color: white;
+    border: none;
+    float: right;
+    padding: 8px 16px;
+}
+.ticket-container .btn-add-product:hover {
+    background-color: #5D87FF;
+}
+.ticket-container .filters-section {
+    display: flex;
+    gap: 15px;
+}
+.table-header {
+    background-color: #4b4b4b; /* Dark brown header */
+    color: #ffffff; /* White text for the header */
+}
+
+.table-container {
+    border: 1px solid #dcdcdc; /* Light grey border around the table */
+    overflow-x: auto; /* Allow horizontal scroll on small screens */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Center text vertically */
+}
+
+.table th {
+    text-align: center;
+}
+
+.btn-edit {
+    color: #007bff; /* Blue color for the "Edit" button */
+    text-decoration: none;
+}
+
+.btn-edit:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    width: 300px;
+}
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+.search-box .search-icon {
+    color: #555;
+    padding: 3px 0;
+    padding-left: 8px;
+}
+
+.search-icon:hover {
+    cursor: pointer;
+}
+.actions-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.pagination-controls select {
+    width: 60px;
+    padding: 2px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+}
+.pagination-controls .page-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    color: #555;
+    cursor: pointer;
+}
+.pagination-controls .page-btn:disabled {
+    background-color: #e9ecef;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+.modal-header {
+    background-color: #007bff;
+    color: #fff !important;
+    text-align: center;
+    border-bottom: none;
+}
+
+.modal-title {
+    color: #fff !important;
+}
+.btn-close {
+    color: #fff;
+}
+.btn-submit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Container để tạo khung cuộn cho select */
+.select-container {
+    max-height: 50px; /* Chiều cao tối đa */
+    overflow-y: auto;  /* Hiển thị thanh cuộn nếu số lượng lựa chọn vượt quá chiều cao */
+    border: 1px solid #ddd; /* Viền cho select */
+    border-radius: 5px; /* Bo góc cho select */
+    position: relative; /* Đảm bảo các phần tử con được hiển thị đúng */
+}
+
+/* Cấu hình cho phần select để không bị cuộn */
+.select-container select {
+    width: 100%;  /* Đảm bảo select chiếm hết chiều rộng của container */
+    height: auto;  /* Điều chỉnh chiều cao tự động */
+    padding: 5px;
+    font-size: 14px;
+}
+
+.btn-edit {
+    cursor: pointer; /* Đảm bảo thêm dòng này */
+}

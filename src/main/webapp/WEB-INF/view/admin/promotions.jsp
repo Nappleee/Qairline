@@ -182,7 +182,9 @@
         $.ajax({
             url: '/api/promotionsSearch?keyword=' + keyword + '&page='+ Page +'&size=5', // URL của REST API
             method: 'GET',
-            dataType: 'json',
+            dataType: 'json',headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             success: function (data) {
                 // Lặp qua danh sách promotions và thêm vào bảng
                 const promotions = data.content;
@@ -206,9 +208,9 @@
                 $('#prevPage').prop('disabled', data.first);
                 $('#nextPage').prop('disabled', data.last);
             },
-            error: function (xhr, status, error) {
-                console.error('Error fetching promotions:', status, error);
-                console.error('Response:', xhr.responseText);
+            error: function (error) {
+                console.error('Error fetching aircraft:', error);
+                window.location.href = '/admin/deny';
             }
         });
     };
@@ -226,6 +228,9 @@
             $.ajax({
                 url: '/api/deletepromotion', // Đường dẫn API để xóa
                 method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+                },
                 data: { promotionId: promotionIdToDelete },
                 success: function(response) {
                     $('#deleteConfirmModal').modal('hide');
@@ -245,6 +250,9 @@
             url: '/api/promotions/' + promotionId,  // API lấy thông tin chuyến bay
             method: 'GET',
             dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             success: function(data) {
                 // Điền thông tin vào các trường trong form modal
                 $('#editPromotionId').val(data.promotionId);
@@ -289,6 +297,9 @@
         $.ajax({
             url: '/api/promotions/' + promotionId,
             method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             data: JSON.stringify({
                 promotionId: promotionId,
                 description: description,
@@ -318,8 +329,11 @@
             var formData = $(this).serialize();
             console.log(formData)
             $.ajax({
-                url: '/admin/promotions',
+                url: '/admin/addpromotions',
                 type: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+                },
                 data: formData,
                 success: function(response) {
                     console.log(response);

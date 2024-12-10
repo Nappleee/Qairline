@@ -22,7 +22,7 @@ public class Ticket {
     private Flight flight;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String seatNumber;
@@ -32,6 +32,6 @@ public class Ticket {
     private Double finalPrice;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "promotion_id")
+    @JoinColumn(name = "promotion_id", nullable = true)
     private Promotion promotion;
 }

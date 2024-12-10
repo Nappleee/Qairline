@@ -3,6 +3,7 @@ package com.example.qairline.controller;
 import com.example.qairline.dto.request.PromotionRequest;
 import com.example.qairline.dto.response.PromotionResponse;
 import com.example.qairline.service.PromotionService;
+import com.example.qairline.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -18,26 +19,39 @@ import java.util.List;
 public class PromotionController {
     @Autowired
     private PromotionService promotionService;
+    @Autowired
+    private SecurityUtil securityUtil;
+    @Autowired
+    AuthController authController;
 
     @Transactional
     @GetMapping("/api/promotions")
     @ResponseBody
-    public Page<PromotionResponse> getAllPromotions(@RequestParam(defaultValue = "0") int page,
+    public Page<PromotionResponse> getAllPromotions(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(defaultValue = "0") int page,
                                                  @RequestParam(defaultValue = "5") int size) {
-        return promotionService.getAllPromotionsPaging(page, size);
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return promotionService.getAllPromotionsPaging(page, size);
+        }
+        return null;
     }
 
     @GetMapping("api/promotionsSearch")
     @ResponseBody
-    public Page<PromotionResponse> getPromotionsSearch(@RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
+    public Page<PromotionResponse> getPromotionsSearch(@RequestHeader("Authorization") String authorizationHeader, @RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return promotionService.searchPromotions(keyword, page, size);
 
-        return promotionService.searchPromotions(keyword, page, size);
+        }
+        return null;
     }
 
     @GetMapping("/api/getAllPromotions")
     @ResponseBody
-    public List<PromotionResponse> getAllPromotions() {
-        return promotionService.getAllPromotions();
+    public List<PromotionResponse> getAllPromotions(@RequestHeader("Authorization") String authorizationHeader) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return promotionService.getAllPromotions();
+        }
+        return null;
     };
 
     @GetMapping("/admin/promotions")
@@ -50,28 +64,48 @@ public class PromotionController {
 
     @PostMapping("/api/deletepromotion")
     @ResponseBody
-    public String deletePromotion(@RequestParam("promotionId") Long promotionId) {
-        promotionService.deletePromotion(promotionId);
-        return "success";
+    public String deletePromotion(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("promotionId") Long promotionId) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            promotionService.deletePromotion(promotionId);
+            return "success";
+        }
+        return null;
     }
 
-    @PostMapping("/admin/promotions")
+    @PostMapping("/admin/addpromotions")
     @ResponseBody
-    public String addAircraft(@ModelAttribute("addPromotionModelAttribute") PromotionRequest request, RedirectAttributes redirectAttributes) {
-        promotionService.addPromotion(request);
-        return "success";
+    public String addPromotion(@RequestHeader("Authorization") String authorizationHeader, @ModelAttribute("addPromotionModelAttribute") PromotionRequest request, RedirectAttributes redirectAttributes) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            promotionService.addPromotion(request);
+            return "success";
+        }
+        return null;
     }
 
     @GetMapping("/api/promotions/{promotionId}")
     @ResponseBody
-    public PromotionResponse getPromotionById(@PathVariable Long promotionId) {
-        return promotionService.getPromotionById(promotionId);
+    public PromotionResponse getPromotionById(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long promotionId) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return promotionService.getPromotionById(promotionId);
+        }
+        return null;
     }
 
 
     @PutMapping("/api/promotions/{promotionId}")
     @ResponseBody
-    public PromotionResponse updatePromotion(@PathVariable Long promotionId, @RequestBody PromotionRequest request) {
-        return promotionService.updatePromotion(promotionId, request);
+    public PromotionResponse updatePromotion(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long promotionId, @RequestBody PromotionRequest request) {
+        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+            return promotionService.updatePromotion(promotionId, request);
+        }
+        return null;
+    }
+
+    boolean isAdmin() {
+        String userName = securityUtil.getCurrentUserLogin().orElse(null);
+        if (userName != null && userName.equals("admin")) {
+            return true;
+        }
+        return false;
     }
 }
