@@ -13,13 +13,15 @@ import java.time.format.DateTimeFormatter;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PromotionResponse {
     private Long promotionId;
+    private String title;
     private String description;
     private Double discountPercent;
     private String startDate;
     private String endDate;
 
-    public PromotionResponse(Long promotionId, String description, Double discountPercent, LocalDateTime startDate, LocalDateTime endDate) {
+    public PromotionResponse(Long promotionId,String title, String description, Double discountPercent, LocalDateTime startDate, LocalDateTime endDate) {
         this.promotionId = promotionId;
+        this.title = title;
         this.description = description;
         this.discountPercent = discountPercent;
         this.startDate = formatDateTime(startDate);

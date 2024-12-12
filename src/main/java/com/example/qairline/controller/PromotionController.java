@@ -62,6 +62,11 @@ public class PromotionController {
         return "admin/promotions";
     }
 
+    @GetMapping("/notifications")
+    public String getNotifications() {
+        return "user/notifications";
+    }
+
     @PostMapping("/api/deletepromotion")
     @ResponseBody
     public String deletePromotion(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("promotionId") Long promotionId) {

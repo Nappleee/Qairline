@@ -43,6 +43,7 @@ public class ApplicationInitConfig {
                 User user = User.builder()
                         .username(ADMIN_USER_NAME)
                         .password(passwordEncoder.encode(ADMIN_PASSWORD))  // Mã hóa mật khẩu
+                        .email("datlc81@gmail.com")
                         .role("ADMIN")  // Gán vai trò "ADMIN" cho tài khoản này
                         .build();
 
