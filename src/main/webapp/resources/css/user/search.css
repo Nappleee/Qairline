@@ -1,0 +1,206 @@
+.search-bar-p-4 {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-bar-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.search-bar-field {
+    flex: 1 1 calc(50% - 10px);
+    position: relative;
+}
+
+.search-bar-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+.search-bar-field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-bar-field input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 4px rgba(52, 152, 219, 0.5);
+}
+
+.search-bar-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.search-bar-category {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.search-bar-category:last-child {
+    border-bottom: none;
+}
+
+.search-bar-category strong {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.search-bar-category ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.search-bar-category li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.search-bar-category li:hover {
+    background: #f1f1f1;
+}
+
+.search-bar-button {
+    flex: 1 1 100%;
+    text-align: center;
+}
+
+.search-bar-button button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar-button button:hover {
+    background: #2980b9;
+}
+.category-list {
+    width: 30%; /* Bên trái hiển thị danh mục */
+    background-color: #e6f7ff;
+    border-right: 1px solid #ddd;
+    overflow-y: auto; /* Thanh cuộn cho danh mục */
+}
+
+.category-item {
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-item:hover,
+.category-item.active {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.place-list {
+    width: 70%; /* Bên phải hiển thị danh sách địa điểm */
+    padding: 15px;
+    overflow-y: auto; /* Thanh cuộn cho địa điểm */
+}
+
+.place-item {
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.place-item:hover {
+    background-color: #f1f1f1;
+}
+/* General Dropdown Styles */
+.suggestions-dropdown {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+/* Left Column: Categories */
+.category-list {
+    width: 30%;
+    background-color: #007bff; /* Blue for categories */
+    display: flex;
+    flex-direction: column;
+}
+
+.category-item {
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-item:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.category-item.active {
+    background-color: white; /* Selected category becomes white */
+    color: #007bff; /* Blue text for selected category */
+}
+
+/* Right Column: Airports */
+.place-list {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.place-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.place-item:hover {
+    background-color: #f8f9fa; /* Light gray background on hover */
+    text-decoration: underline; /* Underline the text */
+}

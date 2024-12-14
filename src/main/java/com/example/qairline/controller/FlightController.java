@@ -30,9 +30,9 @@ public class FlightController {
     @Transactional
     @GetMapping("/api/flights")
     @ResponseBody
-    public Page<FlightResponse> getAllFlights(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(defaultValue = "0") int page,
+    public Page<FlightResponse> getAllFlights(@RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "5") int size) {
-        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+        if (isAdmin()) {
             return flightService.getAllFlightsPaging(page, size); // Trả về JSON danh sách flights
 
         }
@@ -41,8 +41,9 @@ public class FlightController {
 
     @GetMapping("api/flightsSearch")
     @ResponseBody
-    public Page<FlightResponse> getFlightsSearch(@RequestHeader("Authorization") String authorizationHeader, @RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
-        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+    public Page<FlightResponse> getFlightsSearch( @RequestParam String keyword, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        System.out.println("TEST");
+        if (isAdmin()  || isCustomer() ) {
             return flightService.searchFlights(keyword, page, size);
 
         }
@@ -112,4 +113,13 @@ public class FlightController {
         }
         return false;
     }
+    boolean isCustomer() {
+        String userName = securityUtil.getCurrentUserLogin().orElse(null);
+        if (userName != null) {
+            return true;
+        }
+        return false;
+    }
+
+
 }

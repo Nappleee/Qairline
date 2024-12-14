@@ -20,4 +20,5 @@ public class PromotionRequest {
     private LocalDateTime startDate;
     @NotEmpty
     private LocalDateTime endDate;
+
 }

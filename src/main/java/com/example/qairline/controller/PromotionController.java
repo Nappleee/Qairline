@@ -35,6 +35,11 @@ public class PromotionController {
         return null;
     }
 
+    @GetMapping("/home")
+    public String Lmao(){
+        return "user/home";
+    }
+
     @GetMapping("api/promotionsSearch")
     @ResponseBody
     public Page<PromotionResponse> getPromotionsSearch(@RequestHeader("Authorization") String authorizationHeader, @RequestParam String keyword, @RequestParam int page, @RequestParam int size) {

@@ -40,11 +40,8 @@ public class TicketController {
 
     @GetMapping("/api/getAllTickets")
     @ResponseBody
-    public List<TicketResponse> getAllTickets(@RequestHeader("Authorization") String authorizationHeader) {
-        if (isAdmin() && !authController.isTokenBlacklisted(authorizationHeader)) {
+    public List<TicketResponse> getAllTickets() {
             return ticketService.getAllTickets();
-        }
-        return null;
     };
 
     @GetMapping("api/ticketsSearch")
@@ -137,4 +134,24 @@ public class TicketController {
     public String test(Model model) {
         return "user/test";
     }
+
+    @Transactional
+    @PostMapping("/addtickets")
+    @ResponseBody
+    public String addTicketForUser(@RequestBody TicketRequest request) {
+        if (request.getTicketId() == null || request.getUserId() == null) {
+            throw new IllegalArgumentException("Ticket ID and User ID must not be null!");
+        }
+        ticketService.addTicketForUser(request);
+        return "Ticket assigned successfully!";
+    }
+
+
+    @PostMapping("/userdeleteticket")
+    @ResponseBody
+    public String userDeleteTicket(@RequestBody TicketRequest request) {
+            ticketService.userDeleteTicket(request);
+            return "success";
+    }
 }
+

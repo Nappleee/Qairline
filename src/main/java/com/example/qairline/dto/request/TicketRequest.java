@@ -19,4 +19,8 @@ public class TicketRequest {
 
     //private Double finalPrice;
     private Long promotionId;
+
+
+    private Long ticketId;
+    private Long userId;
 }

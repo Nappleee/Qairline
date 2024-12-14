@@ -24,4 +24,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             "t.status LIKE %:keyword% OR " +
             "t.seatNumber LIKE %:keyword%")
     Page<Ticket> searchByKeyword(String keyword, Pageable pageable);
+
 }

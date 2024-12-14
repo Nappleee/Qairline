@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,6 +24,10 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream().map(this::convertToDTO).toList();
@@ -56,6 +60,7 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
+
     public UserResponse addUser(UserRequest request) {
         User user = new User();
         String hashPassword = this.passwordEncoder.encode(request.getPassword());
@@ -84,5 +89,10 @@ public class UserService {
         user.setCreatedAt(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         return this.convertToDTO(this.userRepository.save(user));
+    }
+
+    public Long getUserIdByUserName(String username) {
+        User user = this.userRepository.findByUsername(username);
+        return user.getUserId();
     }
 }

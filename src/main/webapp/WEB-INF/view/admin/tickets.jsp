@@ -308,7 +308,7 @@
     });
 
     function Edit(ticketId) {
-        console.log("edit");
+        console.log(ticketId);
         $.ajax({
             url: '/api/tickets/' + ticketId,  // API lấy thông tin chuyến bay
             method: 'GET',

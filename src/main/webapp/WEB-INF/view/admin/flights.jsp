@@ -50,7 +50,9 @@
                                         <div class="select-container">
                                             <select class="form-select" class="aircraftModel" id="aircraftModel" name="aircraftModel" required>
                                                 <option value="" selected disabled>Select airplane model</option>
-
+                                                 <option value="VJA">Vietjet Air</option>
+                                                 <option value="BBA">Bamboo Airway</option>
+                                                 <option value="VNA">Viet Nam Airlines</option>
                                             </select>
                                         </div>
 
@@ -243,7 +245,7 @@
     let currentPage = 0;
     let keyword = $('#search-input').val();
     function loadFlights(Page, keyword) {
-        console.log(Page);
+        console.log(Page, keyword, typeof(keyword));
         $.ajax({
             url: '/api/flightsSearch?keyword=' + keyword + '&page='+ Page +'&size=5', // URL của REST API
             method: 'GET',
@@ -260,7 +262,7 @@
                 flights.forEach(function (flight) {
                     rows += '<tr>';
                     rows += '<td>' + flight.flightId + '</td>';
-                    rows += '<td>' + flight.aircraft + '</td>';
+                    rows += '<td>' + flight.aircraftModel + '</td>';
                     rows += '<td>' + flight.departure + '</td>';
                     rows += '<td>' + flight.destination + '</td>';
                     rows += '<td>' + flight.departureTime.toString() + '</td>';
@@ -318,7 +320,7 @@
     // Hàm mở modal chỉnh sửa chuyến bay
     function Edit(flightId) {
         // Gửi yêu cầu GET để lấy thông tin chuyến bay từ server
-        console.log("edit");
+        console.log(flightId);
         $.ajax({
             url: '/api/flights/' + flightId,  // API lấy thông tin chuyến bay
             method: 'GET',

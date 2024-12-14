@@ -143,4 +143,29 @@ public class TicketService {
         }
         return new TicketResponse(ticket.getTicketId(), ticket.getFlight().getFlightId(), userName, ticket.getSeatNumber(), ticket.getStatus(), ticket.getFinalPrice(), promotionId);
     }
+
+    public void addTicketForUser(TicketRequest request) {
+        Ticket ticket = ticketRepository.findById(request.getTicketId())
+                .orElseThrow(() -> new IllegalArgumentException("Ticket not found!"));
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found!"));
+
+        if (!"AVAILABLE".equals(ticket.getStatus())) {
+            throw new IllegalStateException("Ticket is not available!");
+        }
+
+        ticket.setUser(user);
+        ticket.setStatus("PAID");
+        ticketRepository.save(ticket);
+    }
+
+    public void userDeleteTicket(TicketRequest request) {
+        Ticket ticket = ticketRepository.findById(request.getTicketId())
+                .orElseThrow(() -> new IllegalArgumentException("Ticket not found!"));
+
+        System.out.println("ABCDEFGH");
+        ticket.setUser(null);
+        ticket.setStatus("AVAILABLE");
+        ticketRepository.save(ticket);
+    }
 }
