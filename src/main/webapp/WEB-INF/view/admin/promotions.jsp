@@ -51,6 +51,10 @@
                                         <input type="text" class="form-control" id="description" name="description" required>
                                     </div>
                                     <div class="mb-3">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" required>
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="discountPercent" class="form-label">Discount Percent</label>
                                         <input type="number" class="form-control" id="discountPercent" name="discountPercent" required>
                                     </div>
@@ -89,6 +93,10 @@
                                     <div class="mb-3">
                                         <label for="editPromotionId" class="form-label">Promotion ID</label>
                                         <input type="text" id="editPromotionId" class="form-control" readonly />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editPromotionId" class="form-label">Title</label>
+                                        <input type="text" id="editTitle" class="form-control" name="editTitle" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="editDescription" class="form-label">Description</label>
@@ -132,6 +140,7 @@
                         <thead class="table-header">
                         <tr>
                             <th>Promotion ID</th>
+                            <th>Title</th>
                             <th>Descripton</th>
                             <th>Discount percent</th>
                             <th>Start date</th>
@@ -194,6 +203,7 @@
                 promotions.forEach(function (promotion) {
                     rows += '<tr>';
                     rows += '<td>' + promotion.promotionId + '</td>';
+                    rows += '<td>' + promotion.title + '</td>';
                     rows += '<td>' + promotion.description + '</td>';
                     rows += '<td>' + promotion.discountPercent + '</td>';
                     rows += '<td>' + promotion.startDate.toString() + '</td>';
@@ -290,6 +300,7 @@
 
         const promotionId = $('#editPromotionId').val();
         const description = $('#editDescription').val();
+        const title = $('#editTitle').val();
         const discountPercent = $('#editDiscountPercent').val();
         const startDate = $('#editStartDate').val();
         const endDate = $('#editEndDate').val();
@@ -303,6 +314,7 @@
             data: JSON.stringify({
                 promotionId: promotionId,
                 description: description,
+                title: title,
                 discountPercent: discountPercent,
                 startDate: startDate,
                 endDate: endDate
