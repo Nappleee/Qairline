@@ -13,7 +13,10 @@
     <!-- Icon Font Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+=======
+>>>>>>> kyanlul/master
 
     <!-- Libraries Stylesheet -->
     <link href="${pageContext.request.contextPath}/libs/owlcarousel/assets/owl.carousel.css" rel="stylesheet">
@@ -55,6 +58,7 @@
         </div>
         <div class="col-lg-4 text-center text-lg-end">
             <div class="d-inline-flex align-items-center" style="height: 45px;">
+<<<<<<< HEAD
                 <!-- Nút mở modal -->
                 <%@ include file="../user/login.jsp" %>
 
@@ -71,6 +75,57 @@
                     </div>
                 </div>
 
+=======
+                <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
+                <!-- Nút mở modal -->
+                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="custom-link">
+                    <small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Đăng nhập</small>
+                </a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Form đăng nhập -->
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">Tên đăng nhập</label>
+                                        <input type="text" class="form-control" id="username"
+                                               placeholder="Nhập tên đăng nhập">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Mật khẩu</label>
+                                        <input type="password" class="form-control" id="password"
+                                               placeholder="Nhập mật khẩu">
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-primary">Đăng nhập</button>
+                                        <a href="#" class="btn btn-link text-decoration-none">Đăng ký tài khoản</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i
+                            class="fa fa-home me-2"></i> My Dashboard</small></a>
+                    <div class="dropdown-menu rounded">
+                        <a href="#" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                    </div>
+                </div>
+>>>>>>> kyanlul/master
             </div>
         </div>
     </div>
@@ -195,8 +250,92 @@
     </div>
     <!-- Carousel End -->
     <div id="searchContainer" class="container-fluid search-bar position-relative" style="top: -50%">
+<<<<<<< HEAD
         <%@ include file="../user/search.jsp" %>
 
+=======
+        <div class="container bg-light p-4 rounded">
+            <!-- Phân loại chuyến đi -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Một chiều -->
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tripType" id="oneWay" value="oneWay"
+                           onclick="checkedForm(this)">
+                    <label class="form-check-label" for="oneWay">Một chiều</label>
+                </div>
+
+                <!-- Khứ hồi -->
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tripType" id="roundTrip" value="roundTrip"
+                           onclick="checkedForm(this)">
+                    <label class="form-check-label" for="roundTrip">Khứ hồi</label>
+                </div>
+
+                <!-- Đa chặng -->
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tripType" id="multiCity" value="multiCity"
+                           onclick="checkedForm(this)">
+                    <label class="form-check-label" for="multiCity">Đa chặng</label>
+                </div>
+            </div>
+
+
+            <!-- Thông tin tìm kiếm -->
+            <div class="row g-3">
+                <!-- Điểm đi -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="departure" class="form-label fw-bold">Từ</label>
+                    <input id="departure" type="text" class="searchLocation form-select rounded-pill"
+                           name="location" placeholder="Nhập tên thành phố...">
+                </div>
+                <!-- Điểm đến -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="destination" class="form-label fw-bold">Đến</label>
+                    <input id="destination" type="text" class="searchLocation form-select rounded-pill"
+                           name="location" placeholder="Nhập tên thành phố...">
+                </div>
+
+                <!-- Ngày đi -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="departure_time" class="form-label">Ngày đi</label>
+                    <input type="date" class="form-control rounded-pill" id="departure_time">
+                </div>
+                <!-- Ngày về -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="returnDate" class="form-label">Ngày về</label>
+                    <input type="date" class="form-control rounded-pill" id="returnDate">
+                </div>
+            </div>
+
+            <!-- Số hành khách -->
+            <div class="row mt-3">
+                <div class="col-md-6 col-lg-3">
+                    <label for="passengers" class="form-label">Số hành khách</label>
+                    <select id="passengers" class="form-select rounded-pill">
+                        <option value="1">1 Hành khách</option>
+                        <option value="2">2 Hành khách</option>
+                        <option value="3">3 Hành khách</option>
+                        <option value="4">4+ Hành khách</option>
+                    </select>
+                </div>
+
+                <!-- Mã giảm giá -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="promoCode" class="form-label">Mã giảm giá</label>
+                    <input type="text" class="form-control rounded-pill" id="promoCode"
+                           placeholder="Nhập mã giảm giá">
+                </div>
+
+                <!-- Nút tìm kiếm -->
+                <div class="col-lg-6 d-flex align-items-end">
+                    <button id="finding" type="button" class="btn btn-primary w-100 rounded-pill py-2"
+                            onclick="findingAirplane()">
+                        Tìm chuyến bay
+                    </button>
+                </div>
+            </div>
+        </div>
+>>>>>>> kyanlul/master
     </div>
     <!-- Modal hiển thị chuyến bay -->
     <div class="modal fade" id="flightModal" tabindex="-1" aria-labelledby="flightModalLabel" aria-hidden="true">
@@ -2097,7 +2236,10 @@
     <script src="/libs/owlcarousel/owl.carousel.min.js"></script>
     <script src="/libs/lightbox/js/lightbox.min.js"></script>
     <script src="/js/user/home.js"></script>
+<<<<<<< HEAD
     <script src="/js/user/logout.js"></script>
+=======
+>>>>>>> kyanlul/master
 </div>
 </body>
 
