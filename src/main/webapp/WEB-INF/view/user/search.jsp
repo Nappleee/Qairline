@@ -268,21 +268,6 @@
 </head>
 <body>
 <div class="container bg-light p-4 rounded">
-    <!-- Flight Search Form -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="tripType" id="oneWay" value="oneWay" onclick="checkedForm(this)">
-            <label class="form-check-label" for="oneWay">Một chiều</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="tripType" id="roundTrip" value="roundTrip" onclick="checkedForm(this)">
-            <label class="form-check-label" for="roundTrip">Khứ hồi</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="tripType" id="multiCity" value="multiCity" onclick="checkedForm(this)">
-            <label class="form-check-label" for="multiCity">Đa chặng</label>
-        </div>
-    </div>
 
     <!-- Search Form Fields -->
     <div class="row g-3">
@@ -347,6 +332,12 @@
         gettingCustomerRequest();
         var keyword = customer.departure;
         var destination = customer.destination
+        const userId = localStorage.getItem('user_id');
+        console.log(userId == null)
+        if(userId == null) {
+            alert("bạn cần đăng nhập!")
+            return;
+        }
         $.ajax({
             url: '/api/flightsSearch?keyword=' + keyword + '&page=' + Page + '&size=5',
             method: 'GET',
@@ -374,8 +365,10 @@
     }
 
     function displayFlights(flights) {
+        let tmp = [];
         const flightsList = document.getElementById('flightsList');
         flightsList.innerHTML = '';
+        console.log(flights.length)
         if (flights.length === 0) {
             flightsList.innerHTML = `<p>No flights found matching your criteria.</p>`;
             return;
@@ -394,7 +387,26 @@
                 console.log("chưa đến giờ bay của chuyến bay");
             }
             if (flight.destination == destination && flightTimeObj >= customerTimeObj) {
+                tmp.push(flight);
+            }
+        });
 
+
+        if (tmp.length === 0) {
+            flightsList.innerHTML = `<p>No flights found matching your criteria.</p>`;
+            return;
+        }
+        tmp.forEach(flight => {
+            const formattedTime = formatDate(flight.departureTime);
+            console.log(flight.departureTime, customer.departure_time);
+            let flightTimeObj = new Date(formattedTime);
+            let customerTimeObj = new Date(customer.departure_time);
+            if (flightTimeObj < customerTimeObj) {
+                console.log("quá giờ bay của chuyến bay");
+            } else {
+                console.log("chưa đến giờ bay của chuyến bay");
+            }
+            if (flight.destination == destination && flightTimeObj >= customerTimeObj) {
                 flightHTML += '<div class="flight-card">';
                 flightHTML += '<h6>Flight ID: ' + flight.flightId + '</h6>';
                 flightHTML += '<p>' + flight.departure + ' → ' + flight.destination + '</p>';
@@ -410,9 +422,8 @@
 
             }
         });
-
         flightsList.innerHTML = flightHTML;
-
+        console.log(tmp);
 
         // Thêm sự kiện mở/đóng dropdown
         document.querySelectorAll('.toggle-arrow').forEach(arrow => {
@@ -424,6 +435,7 @@
     }
 
     function searchTicket(flightId) {
+
         $.ajax({
             url: '/api/getAllTickets',
             method: 'GET',
@@ -547,6 +559,9 @@
             url: '/addtickets',
             type: 'POST',
             contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')  // Lấy token từ localStorage
+            },
             data: JSON.stringify({
                 ticketId: ticketId,
                 userId: userId

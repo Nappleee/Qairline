@@ -1,0 +1,55 @@
+[33mcommit 7eaa78b0882a93c2d129bfe2c24e7e24d92ced82[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 19e7deb 431f0f5
+Author: Nappleee <napplee1007@gmail.com>
+Date:   Sun Dec 15 02:20:59 2024 +0700
+
+    search, login, logout
+
+[33mcommit 19e7debb8265f9105c8cd66b173d2c2cbe0e5cf3[m
+Merge: b6bbd4c 76660a2
+Author: Nappleee <napplee1007@gmail.com>
+Date:   Sun Dec 15 02:16:09 2024 +0700
+
+    search, login, logout
+
+[33mcommit b6bbd4c630eeec60c32be3be079baff52658c625[m
+Author: Nappleee <napplee1007@gmail.com>
+Date:   Sun Dec 15 02:02:46 2024 +0700
+
+    search, login, logout
+
+[33mcommit 431f0f5e2705b50a0b6a16d6af68916861806359[m
+Author: Kyanlul <quydanglc123@gmail.com>
+Date:   Thu Dec 12 22:12:54 2024 +0700
+
+    NewHomePage
+
+[33mcommit b9b1d75135637de6b762da801c1f34cfb0ef9c8b[m
+Author: Nappleee <napplee1007@gmail.com>
+Date:   Wed Dec 11 01:05:21 2024 +0700
+
+    Save local changes before merging from A
+
+[33mcommit 3017148db7652ac5be9d75d2a6a09ac516041428[m
+Author: BuiBang0911 <bui09bang11@gmail.com>
+Date:   Tue Dec 10 23:46:46 2024 +0700
+
+    update and authorized
+
+[33mcommit 76660a23117b2bf6a597dbbf9b3b3ba852d67ad6[m[33m ([m[1;31mkyanlul/master[m[33m, [m[1;31mA/master[m[33m)[m
+Author: Kyanlul <quydanglc123@gmail.com>
+Date:   Tue Dec 10 16:20:55 2024 +0700
+
+    3rd
+
+[33mcommit bf1a59b291ca5b758ca36a27e1eb0f257962f280[m
+Author: Kyanlul <quydanglc123@gmail.com>
+Date:   Tue Dec 10 16:17:40 2024 +0700
+
+    userupdate
+
+[33mcommit 69dd6fc467426f3dc6dd4ebdcfc3f5e8f46b4c3f[m
+Author: BuiBang0911 <bui09bang11@gmail.com>
+Date:   Mon Dec 2 21:15:40 2024 +0700
+
+    first

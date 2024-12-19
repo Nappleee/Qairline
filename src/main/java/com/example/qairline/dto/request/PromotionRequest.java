@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PromotionRequest {
     @NotEmpty
+    private String title;
+    @NotEmpty
     private String description;
     @NotEmpty
     private Double discountPercent;

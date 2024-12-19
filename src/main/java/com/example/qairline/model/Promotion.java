@@ -21,6 +21,7 @@ public class Promotion {
     private Long promotionId;
 
     private String description;
+    private String title;
     private Double discountPercent;
 
     private LocalDateTime startDate;

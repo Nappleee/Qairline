@@ -43,6 +43,7 @@ public class PromotionService {
     public PromotionResponse addPromotion(PromotionRequest request) {
         Promotion promotion = new Promotion();
 
+        promotion.setTitle(request.getTitle());
         promotion.setDescription(request.getDescription());
         promotion.setDiscountPercent(request.getDiscountPercent());
         promotion.setStartDate(request.getStartDate());
@@ -83,6 +84,6 @@ public class PromotionService {
     }
 
     public PromotionResponse convertToDTO(Promotion promotion) {
-        return new PromotionResponse(promotion.getPromotionId(), promotion.getDescription(), promotion.getDiscountPercent(), promotion.getStartDate(), promotion.getEndDate());
+        return new PromotionResponse(promotion.getPromotionId(),promotion.getTitle(), promotion.getDescription(), promotion.getDiscountPercent(), promotion.getStartDate(), promotion.getEndDate());
     }
 }

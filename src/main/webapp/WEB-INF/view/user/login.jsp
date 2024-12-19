@@ -197,7 +197,10 @@
                     localStorage.setItem("username", username);
                     localStorage.setItem("user_id", response.user_id);
                     // Điều hướng đến trang chính sau khi đăng nhập thành công
-                    window.location.href = "/";
+                    alert("Đăng ký thành công! Bạn cần đăng nhập lại!!")
+                    e.preventDefault();
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'block';
                     // Cập nhật topbar
                 }
             },
